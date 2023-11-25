@@ -9,7 +9,7 @@ bot.command :cmd do |event, *code|
         command = "firejail --private --nogroups --noroot --noprofile #{code.join(" ")} 2>&1"  # Redirige la salida estándar y estándar de error al mismo lugar
         output = IO.popen(command) { |io| io.read }
 
-        relevant_output = output#[/Child process initialized in .* ms(.*?)\nParent is shutting down, bye.../m, 1]
+        relevant_output = output[/Child process initialized in .* ms(.*?)\nParent is shutting down, bye.../m, 1]
 
         response = relevant_output&.strip
         if response == '' then
